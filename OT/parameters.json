@@ -1,0 +1,80 @@
+{
+    "input_ds": {
+        "clustering": {
+            "res": 0.15
+        },
+        "filtering": {
+            "min_cells": 3,
+            "min_genes": 10
+        },
+        "raw_input": "./data/100_test_data.h5ad",
+        "scale": "normalize_per_cell_LS_20000",
+        "split": {
+            "balanced_split": true,
+            "split_seed": "default",
+            "test_cells": 0,
+            "valid_cells": 2000
+        }
+    },
+    "model": {
+        "critic_cond_type": "proj",
+        "critic_layers": [
+            1024,
+            512,
+            256
+        ],
+        "gen_cond_type": "batchnorm",
+        "gen_layers": [
+            256,
+            512,
+            1024
+        ],
+        "lambd": 10,
+        "latent_dim": 128,
+        "output_LSN": 20000,
+        "type": "scGAN"
+    },
+    "preprocessed": {
+        "clusters_no": 1,
+        "clusters_ratios": {
+            "0": 1.0
+        },
+        "genes_no": 9223,
+        "scale": {
+            "scale_value": 20000,
+            "scaling": "normalize_per_cell_LS"
+        },
+        "split_seed": 0,
+        "test_cells_per_cluster": {
+            "0": 0
+        },
+        "test_count": 0,
+        "total_count": 100,
+        "train_cells_per_cluster": {},
+        "train_count": -1900,
+        "valid_cells_per_cluster": {
+            "0": 2000
+        },
+        "valid_count": 2000
+    },
+    "training": {
+        "batch_size": 128,
+        "checkpoint": null,
+        "critic_iters": 5,
+        "learning_rate": {
+            "alpha_0": 0.0001,
+            "alpha_final": 1e-05,
+            "decay": true
+        },
+        "max_steps": 1000000,
+        "optimizer": {
+            "algorithm": "AMSGrad",
+            "beta1": 0.5,
+            "beta2": 0.9
+        },
+        "progress_freq": 10,
+        "save_freq": 1000,
+        "summary_freq": 50,
+        "validation_freq": 1000
+    }
+}

@@ -146,8 +146,12 @@ def read_and_serialize(job_path):
     cat = sc_data.sc_raw.obs['cluster'].cat.categories
     with TFRFWriter(worker_path, categories=cat) as writer:
         for line in sc_data.sc_raw:
-            sc_genes, d = process_line(line)
-
+            try:
+                # print(line.shape)
+                sc_genes, d = process_line(line)
+            except:
+                # print("!")
+                continue
             # print in TF records
             writer.write_numpy(sc_genes, d.barcode, d.count_no,
                                d.genes_no, d.dset, d.cluster)

@@ -13,7 +13,7 @@ from tensorflow.contrib.layers.python import layers
 import scipy.sparse as sp_sparse
 from natsort import natsorted
 from MulticoreTSNE import MulticoreTSNE as TSNE
-tsne = TSNE(n_jobs=8)
+# tsne = TSNE(n_jobs=8)
 
 
 class Generator:

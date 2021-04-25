@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+
+import warnings
+warnings.filterwarnings("ignore")
 
 import argparse
 import json
@@ -16,6 +18,9 @@ from estimators.run_exp import run_exp
 from preprocessing.write_tfrecords import process_files
 
 if __name__ == '__main__':
+
+
+
     """
     Main script to process the data and or start the training or 
     generate cells from an existing model
@@ -85,7 +90,7 @@ if __name__ == '__main__':
             copyfile(raw_input, os.path.join(exp_dir, raw_file_name))
 
             # create param.json file in every experiment folder
-            with open(os.path.join(exp_dir, 'parameters.json'), 'w') as fp:
+            with open(os.path.join(exp_dir, 'sc_test.json'), 'w') as fp: #TODO: file name
                 fp.write(json.dumps(exp_param, sort_keys=True, indent=4))
 
         exp_folders.append(exp_dir)

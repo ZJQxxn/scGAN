@@ -68,7 +68,7 @@ class GeneMatrix:
 
         """
 
-        with open(os.path.join(self.job_dir, 'parameters.json'), 'r') as fp:
+        with open(os.path.join(self.job_dir, 'sc_test.json'), 'r') as fp:
             hparam = json.load(fp)
 
         self.raw_file = os.path.join(
@@ -256,18 +256,23 @@ class GeneMatrix:
                 indices = self.sc_raw.obs[
                     self.sc_raw.obs['cluster'] == str(key)].index
 
+                # test_valid_indices = np.random.choice(
+                #     indices, valid_cells_per_cluster[key] +
+                #     test_cells_per_cluster[key], replace=False) # TODO: change to replace=True
                 test_valid_indices = np.random.choice(
                     indices, valid_cells_per_cluster[key] +
-                    test_cells_per_cluster[key], replace=False)
+                             test_cells_per_cluster[key], replace=True)
 
                 test_indices = test_valid_indices[0:test_cells_per_cluster[key]]
                 valid_indices = test_valid_indices[test_cells_per_cluster[key]:]
 
                 for i in test_indices:
-                    self.sc_raw.obs.set_value(i, 'split', 'test')
+                    # self.sc_raw.obs.set_value(i, 'split', 'test')
+                    self.sc_raw.obs.at[i,'split'] = "test"
 
                 for i in valid_indices:
-                    self.sc_raw.obs.set_value(i, 'split', 'valid')
+                    # self.sc_raw.obs.set_value(i, 'split', 'valid')
+                    self.sc_raw.obs.at[i, 'split'] = "valid"
 
             self.valid_cells_per_cluster = valid_cells_per_cluster
             self.test_cells_per_cluster = test_cells_per_cluster
@@ -294,10 +299,12 @@ class GeneMatrix:
             valid_indices = test_valid_indices[self.test_cells:]
 
             for i in test_indices:
-                self.sc_raw.obs.set_value(i, 'split', 'test')
+                # self.sc_raw.obs.set_value(i, 'split', 'test')
+                self.sc_raw.obs.at[i,'split'] = "test"
 
             for i in valid_indices:
-                self.sc_raw.obs.set_value(i, 'split', 'valid')
+                # self.sc_raw.obs.set_value(i, 'split', 'valid')
+                self.sc_raw.obs.at[i, 'split'] = "valid"
 
             self.valid_cells_per_cluster = Counter(
                 self.sc_raw[valid_indices].obs['cluster'])
@@ -327,7 +334,7 @@ class GeneMatrix:
         # write the single cell clustered and processed file
         self.sc_raw.write(self.raw_file)
 
-        with open(os.path.join(self.job_dir, 'parameters.json'), 'r') as fp:
+        with open(os.path.join(self.job_dir, 'sc_test.json'), 'r') as fp:
             hparam = json.load(fp)
 
         # dump json param in this dir

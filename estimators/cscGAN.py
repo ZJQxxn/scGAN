@@ -14,7 +14,7 @@ from estimators.utilities import add_random_input, add_random_labels
 from estimators.utilities import set_learning_rate, set_global_step, rescale
 from estimators.utilities import gradient_step, sc_summary, save_generated_cells
 from MulticoreTSNE import MulticoreTSNE as TSNE
-tsne = TSNE(n_jobs=20)
+# tsne = TSNE(n_jobs=20)
 
 
 class cscGAN:

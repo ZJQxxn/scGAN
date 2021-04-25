@@ -42,7 +42,7 @@ def run_exp(exp_gpu, mode='train', cells_no=None, save_cells_path=None):
 
     # read the parameters
     exp_folder = exp_gpu[0]
-    with open(os.path.join(exp_folder, 'parameters.json')) as fp:
+    with open(os.path.join(exp_folder, 'sc_test.json')) as fp:
         hparams = json.load(fp)
 
     # find training and validation TF records
@@ -60,7 +60,8 @@ def run_exp(exp_gpu, mode='train', cells_no=None, save_cells_path=None):
 
     tf.reset_default_graph()
 
-    if hparams['model']['type'] == 'scGAN':
+    # if hparams['model']['type'] == 'scGAN':
+    if hparams["experiments"]["OT"]["model"]["type"] == 'scGAN':
 
         gan_model = scGAN(
             train_files=train_files,
@@ -99,7 +100,8 @@ def run_exp(exp_gpu, mode='train', cells_no=None, save_cells_path=None):
                 checkpoint=log_dir,
                 save_path=save_cells_path)
 
-    elif hparams['model']['type'] == 'cscGAN':
+    # elif hparams['model']['type'] == 'cscGAN':
+    elif hparams["experiments"]["OT"]["model"]["type"] == 'cscGAN':
 
         gan_model = cscGAN(
             train_files=train_files,
